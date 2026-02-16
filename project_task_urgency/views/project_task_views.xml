@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View Extension -->
+    <record id="view_task_form2_urgency" model="ir.ui.view">
+        <field name="name">project.task.form.urgency</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <field name="priority" position="after">
+                <field name="urgency" widget="statusbar" options="{'clickable': '1'}"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Tree View Extension -->
+    <record id="view_task_tree2_urgency" model="ir.ui.view">
+        <field name="name">project.task.tree.urgency</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.project_task_view_tree_base"/>
+        <field name="arch" type="xml">
+            <field name="priority" position="after">
+                <field name="urgency" decoration-danger="urgency == 'critical'" widget="badge" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Search View Extension -->
+    <record id="view_task_search_urgency" model="ir.ui.view">
+        <field name="name">project.task.search.urgency</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_search_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='my_tasks']" position="before">
+                <filter string="Critical Urgency" name="urgency_critical" domain="[('urgency', '=', 'critical')]"/>
+                <separator/>
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <filter string="Urgency" name="groupby_urgency" context="{'group_by': 'urgency'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
