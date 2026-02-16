@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View Extension -->
+    <record id="view_crm_lead_form_intelligence" model="ir.ui.view">
+        <field name="name">crm.lead.form.intelligence</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Sales Intelligence">
+                    <group>
+                        <group>
+                            <field name="competitor_id" widget="many2one" options="{'no_create': True}"/>
+                            <field name="urgency_level" widget="priority"/>
+                        </group>
+                        <group>
+                            <field name="estimated_budget" widget="monetary"/>
+                            <field name="product_fit_score" widget="priority" groups="base.group_user"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Kanban View Extension -->
+    <record id="view_crm_lead_kanban_intelligence" model="ir.ui.view">
+        <field name="name">crm.lead.kanban.intelligence</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+        <field name="arch" type="xml">
+            <field name="tag_ids" position="after">
+                <field name="urgency_level" widget="priority" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Search View Extension -->
+    <record id="view_crm_lead_search_intelligence" model="ir.ui.view">
+        <field name="name">crm.lead.search.intelligence</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_leads_filter"/>
+        <field name="arch" type="xml">
+            <filter name="salesperson" position="after">
+                <filter string="Competitor" name="groupby_competitor" context="{'group_by': 'competitor_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
