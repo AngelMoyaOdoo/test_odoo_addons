@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Analytic Lines Pivot View - Add product category grouping -->
+    <record id="account_analytic_line_view_pivot_inherit_product_category" model="ir.ui.view">
+        <field name="name">account.analytic.line.pivot.inherit.product.category</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="account_analytic_online.account_analytic_line_view_pivot"/>
+        <field name="arch" type="xml">
+            <pivot string="Analytic Items">
+                <field name="product_categ_id" type="row"/>
+                <field name="product_id" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Inherit Analytic Lines Graph View -->
+    <record id="account_analytic_line_view_graph_inherit_product_category" model="ir.ui.view">
+        <field name="name">account.analytic.line.graph.inherit.product.category</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="account_analytic_online.account_analytic_line_view_graph"/>
+        <field name="arch" type="xml">
+            <graph string="Analytic Items">
+                <field name="product_categ_id"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Inherit Analytic Lines Search View - Add product category filter -->
+    <record id="account_analytic_line_view_search_inherit_product_category" model="ir.ui.view">
+        <field name="name">account.analytic.line.search.inherit.product.category</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="account_analytic_online.account_analytic_line_view_search"/>
+        <field name="arch" type="xml">
+            <search string="Analytic Items">
+                <field name="product_categ_id"/>
+                <filter string="Product Category" name="group_product_categ" context="{'group_by': 'product_categ_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Analytic Lines Tree View - Add product category column -->
+    <record id="account_analytic_line_view_tree_inherit_product_category" model="ir.ui.view">
+        <field name="name">account.analytic.line.tree.inherit.product.category</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="account_analytic_online.account_analytic_line_view_tree"/>
+        <field name="arch" type="xml">
+            <tree string="Analytic Items">
+                <field name="product_categ_id" optional="show"/>
+            </tree>
+        </field>
+    </record>
+</odoo>
